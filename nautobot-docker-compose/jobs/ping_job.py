@@ -1,5 +1,6 @@
 from nautobot.apps.jobs import Job, ObjectVar, register_jobs
 from nautobot.dcim.models import Location, Device
+from nautobot.extras.models import Status
 import socket
 
 name = "test"
@@ -24,7 +25,11 @@ class PingJob(Job):
             ip = str(device.primary_ip4.address.ip)
             if self.ping(ip):
                 self.logger.info(f"{device.name} ({ip}) is reachable")
+                device.status = Status.objects.get(name="Active")
             else:
                 self.logger.warning(f"device.name ({ip}) is unreachable")
+                device.status = Status.objects.get(name="Offline")
+            
+            device.save()
 
 register_jobs(PingJob)
