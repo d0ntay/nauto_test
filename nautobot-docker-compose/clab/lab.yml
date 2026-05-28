@@ -5,14 +5,17 @@ topology:
     ceos1:
       kind: ceos
       image: ceos:latest
+      mgmt-ipv4: 172.20.20.3
 
     ceos2:
       kind: ceos
       image: ceos:latest
+      mgmt-ipv4: 172.20.20.2
 
     ceos3:
       kind: ceos
       image: ceos:latest
+      mgmt-ipv4: 172.20.20.4
 
   links:
     - endpoints: ["ceos1:eth1", "ceos2:eth1"]

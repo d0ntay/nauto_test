@@ -19,9 +19,9 @@ class PingJob(Job):
             return False
 
     def run(self, location):
-        devices = Device.objects.filter(location=location, primaryipv4__isnull = False)
+        devices = Device.objects.filter(location=location, primary_ip4__isnull = False)
         for device in devices:
-            ip = str(device.primaryipv4.address.ip)
+            ip = str(device.primary_ip4.address.ip)
             if self.ping(ip):
                 self.logger.info(f"{device.name} ({ip}) is reachable")
             else:
