@@ -1,0 +1,20 @@
+name: ceos-lab
+
+topology:
+  nodes:
+    ceos1:
+      kind: ceos
+      image: ceos:latest
+
+    ceos2:
+      kind: ceos
+      image: ceos:latest
+
+    ceos3:
+      kind: ceos
+      image: ceos:latest
+
+  links:
+    - endpoints: ["ceos1:eth1", "ceos2:eth1"]
+    - endpoints: ["ceos2:eth2", "ceos3:eth1"]
+    - endpoints: ["ceos1:eth2", "ceos3:eth2"]
